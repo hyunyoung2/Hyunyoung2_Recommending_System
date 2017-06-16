@@ -7,7 +7,7 @@
  
  For test corpus, you could download [the URL](http://cafe.naver.com/nlpk/60)
  
- this program executed with [""](http://nlp.kookmin.ac.kr/down/data/RAW2169-CORE.zip)
+ this program is executed with [third corpus from URL below](http://nlp.kookmin.ac.kr/down/data/RAW2169-CORE.zip)
 
 ## reference 
 
