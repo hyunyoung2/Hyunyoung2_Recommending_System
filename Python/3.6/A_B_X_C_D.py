@@ -38,10 +38,11 @@ def readFile (absPath) :
 # input : a string including specialChar
 # output : a string without specialChar
 def removalOfSpecialChar (inputStr) :
-    specialChar = "[!\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]"
+    specialChar = "[!\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~…]"
     
     inputStr = re.sub(specialChar, "", inputStr)
-         
+    
+            
     return inputStr
 
 
