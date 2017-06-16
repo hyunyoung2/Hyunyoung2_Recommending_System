@@ -10,7 +10,7 @@
 # for execution command
 #import sys
 # for replace specialchar with ""
-#import re
+import re
 # for time measurement betweem statement below 
 import time
 
@@ -37,17 +37,12 @@ def readFile (absPath) :
 # @ function : remove specailChar 
 # input : a string including specialChar
 # output : a string without specialChar
-def removalOfSpecialChar (tempList) :
+def removalOfSpecialChar (inputStr) :
     specialChar = "[!\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~]"
-    temp = ""
     
-    for i in tempList :
-        if i in specialChar : 
-            continue 
-        else : 
-            temp += i 
-            
-    return temp
+    inputStr = re.sub(specialChar, "", inputStr)
+         
+    return inputStr
 
 
 
@@ -73,7 +68,7 @@ def main () :
     end = time.clock()
     elapsedTime = end - begin 
     print (timerStr[2], elapsedTime, "Seconds ======\n") # end of IO of a file
-    
+    print (tempStr1)
 
     
 # @ if statement for execution of this file   
