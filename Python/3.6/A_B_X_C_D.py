@@ -41,35 +41,49 @@ def removalOfSpecialChar (inputStr) :
     specialChar = "[!\"#$%&\'()*+,-./:;<=>?@[\]^_`{|}~…]"
     
     inputStr = re.sub(specialChar, "", inputStr)
-    
-            
+         
     return inputStr
 
-
+# @ function : tokenizing words into a word and sorting 
+# input : string 
+# output : List of token of words
+def tokenization (wordstring) :
+    tempList = wordstring.split()
+    tempList.sort()
+    return tempList
 
 # @ intial fucntion in if __name__ == "main" :
 # a sequance of this program. 
 def main () :
-    testPath = "C:\\Users\\hyunyoung2\\corpus\\RAW2169-CORE-test.txt"
+    testPath = "C:\\Users\\hyunyoung2\\corpus\\RAW2169-CORE.txt"
     timerStr = ["====== recommendation system starts ======\n",
                 "====== readFile function is done :",
-                "====== removal of specialchar function is done :",]
+                "====== removal of specialchar function is done :",
+                "====== tokenization function is done :",]
     
     print (timerStr[0]) # start of this program
+    
     begin = time.clock()
     tempStr = readFile(testPath)
     end = time.clock()
     elapsedTime = end - begin 
     print (timerStr[1], elapsedTime, "Seconds ======\n") # end of IO of a file
+    #print (tempStr)      
 
-    print (tempStr)
-    print ()
     begin = time.clock()
     tempStr1=removalOfSpecialChar(tempStr)
     end = time.clock()
     elapsedTime = end - begin 
-    print (timerStr[2], elapsedTime, "Seconds ======\n") # end of IO of a file
-    print (tempStr1)
+    print (timerStr[2], elapsedTime, "Seconds ======\n") # end of removal of specialChar
+    #print (tempStr1)
+    
+    begin = time.clock()
+    tempStr2=tokenization(tempStr1)
+    end = time.clock()
+    elapsedTime = end - begin 
+    print (timerStr[3], elapsedTime, "Seconds ======\n") # end of tokenization
+    print (tempStr2)      
+
 
     
 # @ if statement for execution of this file   
