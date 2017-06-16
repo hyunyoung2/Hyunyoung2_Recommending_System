@@ -1,4 +1,4 @@
-# Recommeding_System
+# Recommending_System
 
 ## if you get "A B X C D" input string, what it the most possible x ? 
 
