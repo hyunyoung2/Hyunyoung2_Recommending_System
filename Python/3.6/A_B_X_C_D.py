@@ -101,8 +101,21 @@ def wordCounting (nGram) :
 
     return nDic
 
+# -- functions to deal with inputstring on command like A B X C D
 
-
+# @ function : check if input string include 'x' or 'X'
+## input : string whether it includes 'x' or 'X' or not
+## output : x's idx or if there isn't 'x', return None
+def includingX (inputStr) :
+    
+    if "x" in inputStr :
+        xIdx = inputStr.index("x")
+        return xIdx
+    elif "X" in inputStr :
+        xIdx = inputStr.index("X")
+        return xIdx
+    else : 
+        return None
 
 # @ intial fucntion in if __name__ == "main" :
 # a sequance of this program. 
@@ -152,7 +165,7 @@ def main () :
     print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
     #print (tempStr4)  
     
-    
+    testInputString =  '그분들의 뜻이 x 있는지 공부하고'
     
     
     
