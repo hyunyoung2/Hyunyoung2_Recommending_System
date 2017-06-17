@@ -119,7 +119,6 @@ def upperCaseToLowerCase (inputStr) :
 def isIncludingX (inputStr) :
     
     if "x" in inputStr :
-        print ("sfsd")
         return inputStr.index("x")
     else :
         return None
@@ -288,7 +287,7 @@ def main () :
     
     testInputString = "그분들의 뜻이 X 있는지 공부하고"
     
-    print(testInputString)
+    print("inputString : ", testInputString, "\n")
     tempStr5=upperCaseToLowerCase(testInputString)
     end6 = time.clock()
     elapsedTime = end6 - end5 
@@ -302,11 +301,12 @@ def main () :
     print(tempStr6)
     
     # always keep in mind, tempStr6 is [[A B X], [X C D], [A B X C D]]
-    
+    print ("\nstart to find out the result of every mode which [A B X], [X C D], [A B X C D]\n")
     # mode : A B X
     
     
     # mode :  X C D
+    print ("\n below is mode [X C D]\n")
     rightSideCompare (nGramList, tempStr6[1])
     
     # mode : A B X C D
