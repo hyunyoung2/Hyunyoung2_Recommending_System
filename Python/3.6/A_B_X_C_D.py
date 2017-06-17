@@ -171,8 +171,10 @@ def seperateMode (inputStr) :
 
 # -- specific function to operate as each mode, [[A B X], [X C D], [A B X C D]]
 
-# @ function :  A B X
-def modeABX (nGramDict, rightSideStr) :
+# @ function :  X A B 
+# input : list of  nGram from bigram to fivegram and [A B X], plus length of [A B X]
+# output : ??? 
+def modeXAB (nGramDict, rightSideStr) :
     # the same list 
     totalSameList = []
     
@@ -354,7 +356,7 @@ def main () :
     
     print ("\n====== below is mode [A B X] which is", tempStr6[0], "======\n")
     # mode : A B X
-    modeABX (nGramList, tempStr6[0])
+    modeXAB (nGramList, tempStr6[0])
     
     
     # mode :  X C D
