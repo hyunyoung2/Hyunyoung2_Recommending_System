@@ -10,7 +10,7 @@
   
   Then, you use iconv tool as followings
   
-  > $ iconv -c -s -f euckr -t utf-8 input.txt > output.txt
+  > $ iconv -c -s -f "euckr" -t "utf-8" input.txt > output.txt
   
 ## Reference
  
