@@ -171,7 +171,7 @@ def seperateMode (inputStr) :
 
 # -- specific function to operate as each mode, [[A B X], [X C D], [A B X C D]]
 
-# @ function :  X A B 
+# @ function :  A B X
 # input : list of  nGram from bigram to fivegram and [A B X], plus length of [A B X]
 # output : ??? 
 def modeXAB (nGramDict, rightSideStr) :
