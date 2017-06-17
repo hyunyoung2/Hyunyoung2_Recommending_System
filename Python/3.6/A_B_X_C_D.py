@@ -171,51 +171,48 @@ def seperateMode (inputStr) :
 
 # -- specific function to operate as each mode, [[A B X], [X C D], [A B X C D]]
 
-# @ function :  A B X
-# input : list of  nGram from bigram to fivegram and [A B X], plus length of [A B X]
+# @ function : A B X 
+# input : list of  nGram from bigram to fivegram and [A B X]
 # output : ??? 
-def modeXAB (nGramDict, rightSideStr) :
+def ABX (nGramDict, leftSideStr) : 
     # the same list 
-    totalSameList = []
+    samelist = []
     
-    # List length
-    lenOfrightStr = len(rightSideStr)
+    #list length
+    lenOflefttStr = len(leftSideStr)
     
-    if lenOfrightStr == 1 : 
-        print ("we cannot find out it!! because the str you want to search for ", rightSideStr)
+    if lenOflefttStr == 1: 
+        print ("we cannot find out it!! because the str you want to search for ", leftSideStr)
         return 
     
-    while lenOfrightStr > 1 :
+    for length in range (lenOflefttStr, 1, -1) :
         tempStr = []
         maxNumber = 0
-        for idx, var in nGramDict[lenOfrightStr-2].items() :
+        for idx, var in nGramDict[length-2].items() :
                 dict_key = []
                 dict_key.extend(idx.split())
-                if dict_key[1:lenOfrightStr] == rightSideStr[1:lenOfrightStr] :
-                    #print ("if :", dict_key[1:lenOfrightStr], leftSideStr[1:lenOfrightStr], var)
+                if dict_key[0:length-1] == leftSideStr[lenOflefttStr-length:lenOflefttStr-1] :
+                    #print ("if :", dict_key[0:length-1], leftSideStr[lenOflefttStr-length:lenOflefttStr-1], var)
                     if maxNumber <= var :
                         if maxNumber < var :
-                            totalSameList.clear()
+                            samelist.clear()
                             
                         tempStr = dict_key
-                        maxNumber = var
-                        totalSameList.append((rightSideStr[0:lenOfrightStr],tempStr,maxNumber))
+                        maxNumber = var 
+                        samelist.append((leftSideStr[lenOflefttStr-length:lenOflefttStr],tempStr,maxNumber))
         if tempStr == [] :
-            print ("======== ", rightSideStr[0:lenOfrightStr] ," ============")
-            print ("we can search for nothing to bs similar to ", rightSideStr[0:lenOfrightStr])
+            print ("======== ", leftSideStr[lenOflefttStr-length:lenOflefttStr] ," ============")
+            print ("we can search for nothing to be similar to ", leftSideStr[lenOflefttStr-length:lenOflefttStr])
         else :
-            print ("======== ", rightSideStr ," ============")
-            print (rightSideStr[0:lenOfrightStr], ", Count : ", tempStr, ",", maxNumber)
-    
-        lenOfrightStr -= 1
-    
-    #print ("===for statement====")
+            print ("======== ", leftSideStr ," ============")
+            print (leftSideStr[lenOflefttStr-length:lenOflefttStr], ", Count : ", tempStr,",", maxNumber)
+            
+    #print ("\n===for statement====\n")
     
     #for idx, var in enumerate(samelist) : 
-        #print ("\n======== ", rightSideStr ," ============\n")
-        #print (var[0], ", Count : ", var[1], ",", var[2]
-            
-    
+        #print ("======== ", leftSideStr ," ============")
+        #print (var[0], ", Count : ", var[1], ",", var[2])
+       
     return True
 
 
@@ -356,7 +353,7 @@ def main () :
     
     print ("\n====== below is mode [A B X] which is", tempStr6[0], "======\n")
     # mode : A B X
-    modeXAB (nGramList, tempStr6[0])
+    ABX (nGramList, tempStr6[0])
     
     
     # mode :  X C D
