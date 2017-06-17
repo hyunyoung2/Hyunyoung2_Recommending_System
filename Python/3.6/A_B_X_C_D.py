@@ -281,7 +281,106 @@ def XCD (nGramDict, leftX) :
         modeXCD(nGramDict, leftX[0:lenOfleftX], lenOfleftX)
         lenOfleftX -= 1
         
-# @ function :  A B X C D
+# @ function : preprocessing of A B X C D
+## input : string , idx to removal
+## output : string List not including 'x'
+def removalOfX(inputStr, xIdx) :
+    tempList = []
+    
+    for idx, var in enumerate (inputStr) :
+        if idx != xIdx :
+            tempList.append(var)
+            
+    return tempList
+# @ function : preprocessing of A B X C D
+    
+def modeABXCD (nGramDict, strOfX) :
+    # for output
+    outputList = []
+    # input string list's length
+    lenOfStr = len(strOfX)
+    # temp List
+    tempList = [] 
+    # maximum
+    maxNumber = 0
+    
+    xIdx = isIncludingX(strOfX)
+    
+    if xIdx == None :
+        print ("inputString-", strOfX, "doesn't have 'x' or 'X' ")
+        return 
+    
+    ## function to get rid of "x" or "X" in input String
+    tempList = removalOfX(strOfX, xIdx)
+   
+    #print ("tempList : ", tempList)
+    #print (strOfX)
+    #print (type(strOfX))
+    for idx, var in nGramDict[lenOfStr-2].items() :
+        temp_dict_key = []
+        dict_key = []
+        dict_key.extend(idx.split())
+        temp_dict_key = removalOfX(dict_key, xIdx)
+        if temp_dict_key == tempList :
+            #print ("for test, dict_key :", dict_key)
+            #print ("strOfX :", strOfX)
+            if maxNumber <= var :
+                if maxNumber < var :
+                    #print ("outputList.clear()")
+                    #print (outputList)
+                    maxNumber = var
+                    outputList.clear()
+                
+                outputList.append((var, dict_key))
+    
+    if outputList == [] :
+        print ("the same sting doesn't exist for", strOfX, "\n")
+    else :
+        print ("======= target :", strOfX, "=======")
+        for idx, var in enumerate(outputList) :
+            print ("(string , count) : (", var[1]," ,", var[0], ")")
+            print ("x : ", var[1][xIdx], "\n")   
+            
+    return True
+    
+## function
+
+def ABXCD(nGramDict, strOfX) :
+    
+    # input string list len
+    lenX = len (strOfX)
+    
+    if lenX == 1: 
+        print ("we cannot find out it!! because the str you want to search for ", strOfX, "\n")
+        return 
+    
+    # left Index  
+    leftIdx = 0 
+    # right Index
+    rightIdx = lenX - 1
+    
+    # flag to change order of what to move in strOfX
+    flag = 0 
+    
+    
+    # x index 
+    xIdx = isIncludingX(strOfX)
+    
+    if xIdx == None :
+        print ("we cannot find out it!! because the str you want to search for ", strOfX, "\n")
+        return
+    
+    while leftIdx != xIdx and rightIdx != xIdx :
+        modeABXCD (nGramDict, strOfX[leftIdx:rightIdx+1])
+        if flag == 0 :
+            leftIdx += 1
+            flag = 1
+        else : 
+            rightIdx -= 1
+            flag = 0
+    
+    return True
+
 
 # @ intial fucntion in if __name__ == "main" :
 # a sequance of this program. 
@@ -294,7 +393,12 @@ def main () :
                 "====== nGram is done :",
                 "====== wordcounting is done :",
                 "====== upperCaseToLowerCase is done :",
-                "====== seperateMode is done :",]
+                "====== seperateMode is done :",
+                "====== mode [A B X] is done :",
+                "====== mode [X C D] is done :",
+                "====== mode [A B X C D] is done :",
+                "====== mode [A B X], [X C D], [A B X C D] is done :"]
+    
     nGramList = []
     
     print (timerStr[0]) # start of this program
@@ -346,7 +450,7 @@ def main () :
     #print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
     #print (tempStr4)  
     
-    testInputString = "그분들의 뜻이 X 있는지 공부하고"
+    testInputString = "것까지 것을 X 것입니까 결속은" #"그분들의 뜻이 X 있는지 공부하고"
     
     print("inputString : ", testInputString, "\n")
     tempStr5=upperCaseToLowerCase(testInputString)
@@ -358,7 +462,7 @@ def main () :
     tempStr6 = seperateMode(tempStr5)
     end6 = time.clock()
     elapsedTime = end6 - end5 
-    print (timerStr[7], elapsedTime, "Seconds ======\n") # end of wordcouting
+    print (timerStr[7], elapsedTime, "Seconds ======\n") # end of seperateMode
     print(tempStr6)
     
     # always keep in mind, tempStr6 is [[A B X], [X C D], [A B X C D]]
@@ -367,13 +471,28 @@ def main () :
     print ("\n====== below is mode [A B X] which is", tempStr6[0], "======\n")
     # mode : A B X
     ABX (nGramList, tempStr6[0])
-    
+    end7 = time.clock()
+    elapsedTime = end7 - end6 
+    print (timerStr[8], elapsedTime, "Seconds ======\n") # end of mode [A B X]
     
     # mode :  X C D
     print ("\n====== below is mode [X C D] which is", tempStr6[1], "======\n")
     XCD (nGramList, tempStr6[1])
+    end8 = time.clock()
+    elapsedTime = end8 - end7 
+    print (timerStr[9], elapsedTime, "Seconds ======\n") # end of mode [X C D]
     
     # mode : A B X C D
+    print ("\n====== below is mode [A B X C D] which is", tempStr6[2], "======\n")
+    ABXCD (nGramList, tempStr6[2])
+    end9 = time.clock()
+    elapsedTime = end9 - end8 
+    print (timerStr[10], elapsedTime, "Seconds ======\n") # end of mode [A B X C D]
+    
+    elapsedTime = end9 - end6
+    print (timerStr[11], elapsedTime, "Seconds ======\n") # end of mode [A B X], [X C D], [A B X C D]
+    
+    print ("\nfinish finding out the result of every mode which [A B X], [X C D], [A B X C D]\n")
     
 # @ if statement for execution of this file   
 if __name__ == "__main__" : 
