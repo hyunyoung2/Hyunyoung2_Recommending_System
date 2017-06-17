@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-#"""
-# Created on Thu Jun 15 15:19:38 2017
-#
-# @author: hyunyoung2
-#"""
+"""
+Created on Thu Jun 15 15:19:38 2017
+
+@author: hyunyoung2
+"""
 
 # -- python version : 3.6 --
 # for execution command
@@ -103,24 +103,75 @@ def wordCounting (nGram) :
 
 # -- functions to deal with inputstring on command like A B X C D
 
-# @ function : check if input string include 'x' or 'X'
-## input : string whether it includes 'x' or 'X' or not
-## output : x's idx or if there isn't 'x', return None
-def includingX (inputStr) :
+# @ function : 'X' uppercase change to lowercase
+# in spyder, I made it 
+# input : input string that you want to look for including 'x' or 'X'
+# output : changed string uppercase into lowercase about 'X'
+def upperCaseToLowerCase (inputStr) :
+    
+    if "X" in inputStr :
+       return inputStr.replace("X", "x")
+    
+
+# @ function : check if inputstring on command includes 'x'
+# input : inputstring including 'x'
+# ouput : idx of 'x', if there is not, return None object
+def isIncludingX (inputStr) :
     
     if "x" in inputStr :
-        xIdx = inputStr.index("x")
-        return xIdx
-    elif "X" in inputStr :
-        xIdx = inputStr.index("X")
-        return xIdx
-    else : 
+        print ("sfsd")
+        return inputStr.index("x")
+    else :
         return None
+
+# @ function : seperate inputstring into three types
+# first : A B X mode
+# seconde :  X C D mode 
+# third : A B X C D mode
+# input : list of inputstring on command which is what user are looking for as patter like A B X C D
+# ouput : list including each of those mode(first, seconde, third)
+  
+def seperateMode (inputStr) :
+    # tempList is 2 matrixes with two Lists
+    tempList = []
+    tempLen = len(inputStr)
+    
+    xIdx = isIncludingX(inputStr)
+    
+    if xIdx == None :
+        print ("inputString(", inputStr, ") doesn't have 'x' or 'X' ")
+        return 
+    
+    # only A B x
+    if xIdx == tempLen-1 :
+        ABx = inputStr[0:xIdx+1]
+        tempList.append(ABx.split())
+        tempList.append(None)
+        tempList.append(None)
+    # only x C D 
+    elif xIdx == 0 :
+        xCD = inputStr[xIdx:tempLen]
+        tempList.append(None)
+        tempList.append(xCD.split())
+        tempList.append(None)
+    else :
+        ABx = inputStr[0:xIdx+1]
+        xCD = inputStr[xIdx:tempLen]
+        tempList.append(ABx.split())
+        tempList.append(xCD.split())
+        tempList.append(inputStr.split())
+    
+    print(inputStr)
+    
+    for idx, var in enumerate(tempList) :
+        print (var)
+    
+    return tempList 
 
 # @ intial fucntion in if __name__ == "main" :
 # a sequance of this program. 
 def main () :
-    testPath = "C:\\Users\\hyunyoung2\\corpus\\RAW2169-CORE.txt"
+    testPath = "C:\\Users\\hyunyoung2\\corpus\\RAW2169-CORE-test.txt"
     timerStr = ["====== recommendation system starts ======\n",
                 "====== readFile function is done :",
                 "====== removal of specialchar function is done :",
@@ -130,42 +181,47 @@ def main () :
     
     print (timerStr[0]) # start of this program
     
+          
+    testInputString = "그분들의 뜻이 X 있는지 공부하고"
+    print(testInputString)
+    test=upperCaseToLowerCase(testInputString)
+    print (test)
+    
+    seperateMode(test)
+    
+"""
     begin = time.clock()
     tempStr = readFile(testPath)
-    end = time.clock()
-    elapsedTime = end - begin 
+    end1 = time.clock()
+    elapsedTime = end1 - begin 
     print (timerStr[1], elapsedTime, "Seconds ======\n") # end of IO of a file
     #print (tempStr)      
 
-    begin = time.clock()
     tempStr1=removalOfSpecialChar(tempStr)
-    end = time.clock()
-    elapsedTime = end - begin 
+    end2 = time.clock()
+    elapsedTime = end2 - end1 
     print (timerStr[2], elapsedTime, "Seconds ======\n") # end of removal of specialChar
     #print (tempStr1)
     
-    begin = time.clock()
+
     tempStr2=tokenization(tempStr1)
-    end = time.clock()
-    elapsedTime = end - begin 
+    end3 = time.clock()
+    elapsedTime = end3 - end2 
     print (timerStr[3], elapsedTime, "Seconds ======\n") # end of tokenization
     #print (tempStr2)  
 
-    begin = time.clock()
     tempStr3=nGram(tempStr2)
-    end = time.clock()
-    elapsedTime = end - begin 
+    end4 = time.clock()
+    elapsedTime = end4 - end3 
     print (timerStr[4], elapsedTime, "Seconds ======\n") # end of wordcouting
     #print (tempStr3)    
 
-    begin = time.clock()
     tempStr4=wordCounting(tempStr3)
-    end = time.clock()
-    elapsedTime = end - begin 
+    end5 = time.clock()
+    elapsedTime = end5 - end4 
     print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
     #print (tempStr4)  
-    
-    testInputString =  '그분들의 뜻이 x 있는지 공부하고'
+"""
     
     
     
