@@ -161,12 +161,67 @@ def seperateMode (inputStr) :
         tempList.append(xCD.split())
         tempList.append(inputStr.split())
     
-    print(inputStr)
+    # to check if this function work well
+    #print(inputStr)
     
-    for idx, var in enumerate(tempList) :
-        print (var)
+    #for idx, var in enumerate(tempList) :
+        #print (var)
     
     return tempList 
+
+
+# -- specific function to operate as each mode, [[A B X], [X C D], [A B X C D]]
+
+# @ function :  A B X
+
+# @ function :  X C D
+# input : list of  nGram from bigram to fivegram
+# output : ??? 
+    
+def rightSideCompare (nGramDict, rightSideStr) :
+    # the same list 
+    totalSameList = []
+    
+    # List length
+    lenOfrightStr = len(rightSideStr)
+    
+    if lenOfrightStr == 1 : 
+        print ("we cannot find out it!! because the str you want to search for ", rightSideStr)
+        return 
+    
+    while lenOfrightStr > 1 :
+        tempStr = []
+        maxNumber = 0
+        for idx, var in nGramDict[lenOfrightStr-2].items() :
+                dict_key = []
+                dict_key.extend(idx.split())
+                if dict_key[1:lenOfrightStr] == rightSideStr[1:lenOfrightStr] :
+                    #print ("if :", dict_key[1:lenOfrightStr], leftSideStr[1:lenOfrightStr], var)
+                    if maxNumber <= var :
+                        if maxNumber < var :
+                            totalSameList.clear()
+                            
+                        tempStr = dict_key
+                        maxNumber = var
+                        totalSameList.append((rightSideStr[0:lenOfrightStr],tempStr,maxNumber))
+        if tempStr == [] :
+            print ("======== ", rightSideStr[0:lenOfrightStr] ," ============")
+            print ("we can search for nothing to bs similar to ", rightSideStr[0:lenOfrightStr])
+        else :
+            print ("======== ", rightSideStr ," ============")
+            print (rightSideStr[0:lenOfrightStr], ", Count : ", tempStr, ",", maxNumber)
+    
+        lenOfrightStr -= 1
+    
+    #print ("===for statement====")
+    
+    #for idx, var in enumerate(samelist) : 
+        #print ("\n======== ", rightSideStr ," ============\n")
+        #print (var[0], ", Count : ", var[1], ",", var[2]
+            
+    
+    return True    
+# @ function :  A B X C D
 
 # @ intial fucntion in if __name__ == "main" :
 # a sequance of this program. 
@@ -177,19 +232,13 @@ def main () :
                 "====== removal of specialchar function is done :",
                 "====== tokenization function is done :",
                 "====== nGram is done :",
-                "====== wordcounting is done :"]
+                "====== wordcounting is done :",
+                "====== upperCaseToLowerCase is done :",
+                "====== seperateMode is done :",]
+    nGramList = []
     
     print (timerStr[0]) # start of this program
     
-          
-    testInputString = "그분들의 뜻이 X 있는지 공부하고"
-    print(testInputString)
-    test=upperCaseToLowerCase(testInputString)
-    print (test)
-    
-    seperateMode(test)
-    
-"""
     begin = time.clock()
     tempStr = readFile(testPath)
     end1 = time.clock()
@@ -209,21 +258,58 @@ def main () :
     elapsedTime = end3 - end2 
     print (timerStr[3], elapsedTime, "Seconds ======\n") # end of tokenization
     #print (tempStr2)  
-
-    tempStr3=nGram(tempStr2)
-    end4 = time.clock()
-    elapsedTime = end4 - end3 
-    print (timerStr[4], elapsedTime, "Seconds ======\n") # end of wordcouting
+    
+    # document is divided into between 2 gram and 5 gram 
+    # each of nGram is put into nGramList
+    # nGramList[0] : bigram in other word, nGramList[idx] ->  idx + 2 gram
+    for i in range(1,5) :
+        begin = time.clock()
+        tempList2 = nGram(tempStr2, i+1) # this bigram 
+        end4 = time.clock()
+        elapsedTime = end4 - begin
+        print (i+1,"Gram",  timerStr[4], elapsedTime, "Seconds ======\n") # end of nGram
+        dict_return = wordCounting(tempList2)
+        end5 = time.clock()
+        elapsedTime = end5 - end4 
+        print (i+1, "Gram", timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
+        nGramList.append(dict_return)
+    
+    #tempStr3=nGram(tempStr2)
+    #end4 = time.clock()
+    #elapsedTime = end4 - end3 
+    #print (timerStr[4], elapsedTime, "Seconds ======\n") # end of nGram
     #print (tempStr3)    
 
-    tempStr4=wordCounting(tempStr3)
-    end5 = time.clock()
-    elapsedTime = end5 - end4 
-    print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
+    #tempStr4=wordCounting(tempStr3)
+    #end5 = time.clock()
+    #elapsedTime = end5 - end4 
+    #print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
     #print (tempStr4)  
-"""
+    
+    testInputString = "그분들의 뜻이 X 있는지 공부하고"
+    
+    print(testInputString)
+    tempStr5=upperCaseToLowerCase(testInputString)
+    end6 = time.clock()
+    elapsedTime = end6 - end5 
+    print (timerStr[6], elapsedTime, "Seconds ======\n") # end of upperCaseToLowerCase
+    #print (tempStr5)
+    
+    tempStr6 = seperateMode(tempStr5)
+    end6 = time.clock()
+    elapsedTime = end6 - end5 
+    print (timerStr[7], elapsedTime, "Seconds ======\n") # end of wordcouting
+    print(tempStr6)
+    
+    # always keep in mind, tempStr6 is [[A B X], [X C D], [A B X C D]]
+    
+    # mode : A B X
     
     
+    # mode :  X C D
+    rightSideCompare (nGramList, tempStr6[1])
+    
+    # mode : A B X C D
     
 # @ if statement for execution of this file   
 if __name__ == "__main__" : 
