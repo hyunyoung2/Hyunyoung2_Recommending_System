@@ -172,9 +172,53 @@ def seperateMode (inputStr) :
 # -- specific function to operate as each mode, [[A B X], [X C D], [A B X C D]]
 
 # @ function :  A B X
+def modeABX (nGramDict, rightSideStr) :
+    # the same list 
+    totalSameList = []
+    
+    # List length
+    lenOfrightStr = len(rightSideStr)
+    
+    if lenOfrightStr == 1 : 
+        print ("we cannot find out it!! because the str you want to search for ", rightSideStr)
+        return 
+    
+    while lenOfrightStr > 1 :
+        tempStr = []
+        maxNumber = 0
+        for idx, var in nGramDict[lenOfrightStr-2].items() :
+                dict_key = []
+                dict_key.extend(idx.split())
+                if dict_key[1:lenOfrightStr] == rightSideStr[1:lenOfrightStr] :
+                    #print ("if :", dict_key[1:lenOfrightStr], leftSideStr[1:lenOfrightStr], var)
+                    if maxNumber <= var :
+                        if maxNumber < var :
+                            totalSameList.clear()
+                            
+                        tempStr = dict_key
+                        maxNumber = var
+                        totalSameList.append((rightSideStr[0:lenOfrightStr],tempStr,maxNumber))
+        if tempStr == [] :
+            print ("======== ", rightSideStr[0:lenOfrightStr] ," ============")
+            print ("we can search for nothing to bs similar to ", rightSideStr[0:lenOfrightStr])
+        else :
+            print ("======== ", rightSideStr ," ============")
+            print (rightSideStr[0:lenOfrightStr], ", Count : ", tempStr, ",", maxNumber)
+    
+        lenOfrightStr -= 1
+    
+    #print ("===for statement====")
+    
+    #for idx, var in enumerate(samelist) : 
+        #print ("\n======== ", rightSideStr ," ============\n")
+        #print (var[0], ", Count : ", var[1], ",", var[2]
+            
+    
+    return True
+
 
 # @ function :  X C D
-# input : list of  nGram from bigram to fivegram
+# input : list of  nGram from bigram to fivegram and [X C D], plus length of [X C D] 
 # output : ??? 
 def modeXCD (nGramDict, leftX, lenOfLeftX) :
     # the same list 
@@ -208,6 +252,9 @@ def modeXCD (nGramDict, leftX, lenOfLeftX) :
     # use outputList
     return True    
 
+# @ function : call function in main function for X C D
+# input : list of  nGram from bigram to fivegram
+# output : ??? 
 
 def XCD (nGramDict, leftX) :
     
@@ -304,7 +351,10 @@ def main () :
     
     # always keep in mind, tempStr6 is [[A B X], [X C D], [A B X C D]]
     print ("\nstart to find out the result of every mode which [A B X], [X C D], [A B X C D]\n")
+    
+    print ("\n====== below is mode [A B X] which is", tempStr6[0], "======\n")
     # mode : A B X
+    modeABX (nGramList, tempStr6[0])
     
     
     # mode :  X C D
