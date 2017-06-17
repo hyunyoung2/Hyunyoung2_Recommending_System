@@ -301,6 +301,7 @@ def removalOfX(inputStr, xIdx) :
             tempList.append(var)
             
     return tempList
+
 # @ function : preprocessing of A B X C D
     
 def modeABXCD (nGramDict, strOfX) :
@@ -430,21 +431,8 @@ def main () :
     end3 = time.clock()
     elapsedTime = end3 - end2 
     print (timerStr[3], elapsedTime, "Seconds ======\n") # end of tokenization
-    print (tempStr2)  
+    #print (tempStr2)  
     
-    tempStr3=nGram(tempStr2)
-    end4 = time.clock()
-    elapsedTime = end4 - end3 
-    print (timerStr[4], elapsedTime, "Seconds ======\n") # end of nGram
-    print (tempStr3)    
-
-    tempStr4=wordCounting(tempStr3)
-    end5 = time.clock()
-    elapsedTime = end5 - end4 
-    print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
-    #print (tempStr4)  
-    
-"""    
     # document is divided into between 2 gram and 5 gram 
     # each of nGram is put into nGramList
     # nGramList[0] : bigram in other word, nGramList[idx] ->  idx + 2 gram
@@ -472,7 +460,7 @@ def main () :
     #print (timerStr[5], elapsedTime, "Seconds ======\n") # end of wordcouting
     #print (tempStr4)  
     
-    testInputString = "것까지 것을 X 것입니까 결속은" #"그분들의 뜻이 X 있는지 공부하고"
+    testInputString = "그분들의 뜻이 X 있는지 공부하고" #"것까지 것을 X 것입니까 결속은" 
     
     print("inputString : ", testInputString, "\n")
     tempStr5=upperCaseToLowerCase(testInputString)
@@ -515,7 +503,7 @@ def main () :
     print (timerStr[11], elapsedTime, "Seconds ======\n") # end of mode [A B X], [X C D], [A B X C D]
     
     print ("\nfinish finding out the result of every mode which [A B X], [X C D], [A B X C D]\n")
-"""
+
     
 # @ if statement for execution of this file   
 if __name__ == "__main__" : 
