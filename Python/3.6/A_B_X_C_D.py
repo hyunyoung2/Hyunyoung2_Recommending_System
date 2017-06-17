@@ -176,50 +176,52 @@ def seperateMode (inputStr) :
 # @ function :  X C D
 # input : list of  nGram from bigram to fivegram
 # output : ??? 
-    
-def rightSideCompare (nGramDict, rightSideStr) :
+def modeXCD (nGramDict, leftX, lenOfLeftX) :
     # the same list 
-    totalSameList = []
+    outputList = []
+    maxNumber = 0
+
+    for idx, var in nGramDict[lenOfLeftX-2].items() :
+        dict_key = []
+        dict_key.extend(idx.split())
+        if dict_key[1:lenOfLeftX] == leftX[1:lenOfLeftX] :
+            #print ("for test, dict_key : ", dict_key)
+            #print ("rightX : ", rightX)
+            if maxNumber <= var :
+                if maxNumber < var :
+                    #print ("outputList.clear()")
+                    #print (outputList)
+                    maxNumber = var
+                    outputList.clear()
+                
+                outputList.append((var, dict_key))
     
-    # List length
-    lenOfrightStr = len(rightSideStr)
+    if outputList == [] :
+        print ("the same sting doesn't exist for", leftX, "\n")
+    else :
+        print ("======= target :", leftX, "=======")
+        for idx, var in enumerate(outputList) :
+            print ("(string , count) : (", var[1]," ,", var[0], ")")
+            print ("x : ", var[1][0]) 
+            
+    # if you want to return the result of modeXCD 
+    # use outputList
+    return True    
+
+
+def XCD (nGramDict, leftX) :
     
-    if lenOfrightStr == 1 : 
-        print ("we cannot find out it!! because the str you want to search for ", rightSideStr)
+     # List length
+    lenOfleftX = len(leftX)
+    
+    if lenOfleftX == 1 : 
+        print ("we cannot find out it!! because the str you want to search for ", lenOfleftX, "\n")
         return 
     
-    while lenOfrightStr > 1 :
-        tempStr = []
-        maxNumber = 0
-        for idx, var in nGramDict[lenOfrightStr-2].items() :
-                dict_key = []
-                dict_key.extend(idx.split())
-                if dict_key[1:lenOfrightStr] == rightSideStr[1:lenOfrightStr] :
-                    #print ("if :", dict_key[1:lenOfrightStr], leftSideStr[1:lenOfrightStr], var)
-                    if maxNumber <= var :
-                        if maxNumber < var :
-                            totalSameList.clear()
-                            
-                        tempStr = dict_key
-                        maxNumber = var
-                        totalSameList.append((rightSideStr[0:lenOfrightStr],tempStr,maxNumber))
-        if tempStr == [] :
-            print ("======== ", rightSideStr[0:lenOfrightStr] ," ============")
-            print ("we can search for nothing to bs similar to ", rightSideStr[0:lenOfrightStr])
-        else :
-            print ("======== ", rightSideStr ," ============")
-            print (rightSideStr[0:lenOfrightStr], ", Count : ", tempStr, ",", maxNumber)
-    
-        lenOfrightStr -= 1
-    
-    #print ("===for statement====")
-    
-    #for idx, var in enumerate(samelist) : 
-        #print ("\n======== ", rightSideStr ," ============\n")
-        #print (var[0], ", Count : ", var[1], ",", var[2]
-            
-    
-    return True    
+    while lenOfleftX > 1 :
+        modeXCD(nGramDict, leftX[0:lenOfleftX], lenOfleftX)
+        lenOfleftX -= 1
+        
 # @ function :  A B X C D
 
 # @ intial fucntion in if __name__ == "main" :
@@ -306,8 +308,8 @@ def main () :
     
     
     # mode :  X C D
-    print ("\n below is mode [X C D]\n")
-    rightSideCompare (nGramList, tempStr6[1])
+    print ("\n====== below is mode [X C D] which is", tempStr6[1], "======\n")
+    XCD (nGramList, tempStr6[1])
     
     # mode : A B X C D
     
