@@ -172,48 +172,61 @@ def seperateMode (inputStr) :
 # -- specific function to operate as each mode, [[A B X], [X C D], [A B X C D]]
 
 # @ function : A B X 
-# input : list of  nGram from bigram to fivegram and [A B X]
+# input : list of  nGram from bigram to fivegram and [A B X], plus length of [A B X]
 # output : ??? 
-def ABX (nGramDict, leftSideStr) : 
+def modeABX (nGramDict, rightX, rightXLen) : 
     # the same list 
-    samelist = []
-    
-    #list length
-    lenOflefttStr = len(leftSideStr)
-    
-    if lenOflefttStr == 1: 
-        print ("we cannot find out it!! because the str you want to search for ", leftSideStr)
-        return 
-    
-    for length in range (lenOflefttStr, 1, -1) :
-        tempStr = []
-        maxNumber = 0
-        for idx, var in nGramDict[length-2].items() :
-                dict_key = []
-                dict_key.extend(idx.split())
-                if dict_key[0:length-1] == leftSideStr[lenOflefttStr-length:lenOflefttStr-1] :
-                    #print ("if :", dict_key[0:length-1], leftSideStr[lenOflefttStr-length:lenOflefttStr-1], var)
-                    if maxNumber <= var :
-                        if maxNumber < var :
-                            samelist.clear()
-                            
-                        tempStr = dict_key
-                        maxNumber = var 
-                        samelist.append((leftSideStr[lenOflefttStr-length:lenOflefttStr],tempStr,maxNumber))
-        if tempStr == [] :
-            print ("======== ", leftSideStr[lenOflefttStr-length:lenOflefttStr] ," ============")
-            print ("we can search for nothing to be similar to ", leftSideStr[lenOflefttStr-length:lenOflefttStr])
-        else :
-            print ("======== ", leftSideStr ," ============")
-            print (leftSideStr[lenOflefttStr-length:lenOflefttStr], ", Count : ", tempStr,",", maxNumber)
-            
-    #print ("\n===for statement====\n")
-    
-    #for idx, var in enumerate(samelist) : 
-        #print ("======== ", leftSideStr ," ============")
-        #print (var[0], ", Count : ", var[1], ",", var[2])
-       
+    outputList = []
+    maxNumber = 0  
+    for idx, var in nGramDict[rightXLen-2].items() :
+        dict_key = []
+        dict_key.extend(idx.split())
+        if dict_key[0:rightXLen-1] == rightX :
+            #print ("for test, dict_key : ", dict_key)
+            #print ("rightX : ", rightX)
+            if maxNumber <= var :
+                if maxNumber < var :
+                    #print ("outputList.clear()")
+                    #print (outputList)
+                    maxNumber = var
+                    outputList.clear()
+                
+                outputList.append((var, dict_key))
+        
+    if outputList == [] :
+        # in order to just print target
+        tempList = []
+        tempList.extend(rightX)
+        tempList.append('x')
+        print ("the same sting doesn't exist", tempList, "\n")
+    else :
+        # in order to just print target
+        tempList = []
+        tempList.extend(rightX)
+        tempList.append('x')
+        print ("======= target :", tempList, "=======")
+        for idx, var in enumerate(outputList) :
+            print ("(string , count) : (", var[1]," ,", var[0], ")")
+            print ("x : ", var[1][-1])                         
+    # if you want to return the result of modeXCD 
+    # use outputList  
     return True
+
+# @ function : call function in main function for A B X
+# input : list of  nGram from bigram to fivegram
+# output : ??? 
+
+def ABX (nGramDict, rightX) :
+    
+    # [A, B, X] length 
+    lenOfRightX = len(rightX)
+    
+    if lenOfRightX == 1: 
+        print ("we cannot find out it!! because the str you want to search for ", lenOfRightX, "\n")
+        return 
+        
+    for length in range (lenOfRightX, 1, -1) :
+        modeABX(nGramDict, rightX[lenOfRightX-length:lenOfRightX-1], length)
 
 
 # @ function :  X C D
