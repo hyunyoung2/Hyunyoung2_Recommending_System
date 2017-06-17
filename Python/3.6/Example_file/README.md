@@ -6,7 +6,7 @@
   
   So, probable, when you run [A_B_X_C_D.py](https://github.com/hyunyoung2/Recommending_System/blob/master/Python/3.6/A_B_X_C_D.py)
   
-  Encoding problem might happen in particular on MAC, linux and so on.
+  Encoding problem might happen in particular on **MAC_OS, Linux**and so on.
   
   Then, you use iconv tool as followings
   
