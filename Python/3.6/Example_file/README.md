@@ -12,6 +12,15 @@
   
   > $ iconv -c -s -f "euckr" -t "utf-8" input.txt > output.txt
   
+  For example, the simple way to use this iconv tool as follow : 
+  
+  > iconv -f <source format> -t <target foramt> source_file > target_file   
+  > cp949 encoded to utf8 like :
+  > iconv -f cp949 -t utf-8 source.txt > target.txt  
+  > In order to check list of encoding iconv tool support
+  > iconv -l
+  
+  
 ## Reference
  
   - http://cafe.naver.com/nlpk/23
