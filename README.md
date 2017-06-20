@@ -1,4 +1,4 @@
-# Recommending_System
+# Recommending_System(based on Korean Language)
 
 ## if you get "A B X C D" input string, what it the most possible x ? 
 
