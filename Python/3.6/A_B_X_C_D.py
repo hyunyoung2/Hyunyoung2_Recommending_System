@@ -9,7 +9,7 @@ Created on Thu Jun 15 15:19:38 2017
 # -- python version : 3.6 --
 # for execution command
 #import sys
-# for replace specialchar with ""
+# to replace specialchar with ""
 import re
 # for time measurement betweem statement below 
 import time
