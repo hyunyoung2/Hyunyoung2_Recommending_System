@@ -20,6 +20,12 @@
   > In order to check list of encoding iconv tool support   
   > iconv -l  
   
+  **BUT,** basically, When you use this tool,iconv. you want to use simply, type in like this :
+  
+  > $ iconv -f "euckr" -t input.txt > output.txt    
+  
+  > \-f : the encoding of input file    
+  > \-t : the encoding of output file 
   
 ## Reference
  
